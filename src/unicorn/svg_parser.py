@@ -215,9 +215,11 @@ class SvgParser:
         # Couldn't parse the value
         return None
       elif ( u == '' ) or ( u == 'px' ):
+        return v * 0.26458
+      elif ( u == 'mm' ):
         return v
       elif u == '%':
-        return float( default ) * v / 100.0
+        return None
       else:
         # Unsupported units
         return None
@@ -227,9 +229,11 @@ class SvgParser:
 
   def parse(self):
     # 0.28222 scale determined by comparing pixels-per-mm in a default Inkscape file.
-    self.svgWidth = self.getLength('width', 354) * 0.28222
-    self.svgHeight = self.getLength('height', 354) * 0.28222
-    self.recursivelyTraverseSvg(self.svg, [[0.28222, 0.0, -(self.svgWidth/2.0)], [0.0, -0.28222, (self.svgHeight/2.0)]])
+    # self.svgWidth = self.getLength('width', 354) * 0.28222
+    # self.svgHeight = self.getLength('height', 354) * 0.28222
+    self.svgHeight = self.getLength('height', 354) 
+    self.recursivelyTraverseSvg(self.svg, [[1.0, 0.0, 0], [0.0, -1.0, self.svgHeight]])
+    # self.recursivelyTraverseSvg(self.svg)
 
   # TODO: center this thing
   def recursivelyTraverseSvg(self, nodeList, 

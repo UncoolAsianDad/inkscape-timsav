@@ -26,10 +26,10 @@ from unicorn.svg_parser import SvgParser
 class MyEffect(inkex.Effect):
   def __init__(self):
     inkex.Effect.__init__(self)
-    self.OptionParser.add_option("--pen-up-angle",
-                      action="store", type="float",
-                      dest="pen_up_angle", default="50.0",
-                      help="Pen Up Angle")
+    self.OptionParser.add_option("--pen-up-cmd",
+                      action="store", type="string",
+                      dest="pen_up_cmd", default="M5",
+                      help="Pen Up Command")
     self.OptionParser.add_option("--pen-down-angle",
                       action="store", type="float",
                       dest="pen_down_angle", default="30.0",
@@ -91,7 +91,7 @@ class MyEffect(inkex.Effect):
   def effect(self):
     self.context = GCodeContext(self.options.xy_feedrate, self.options.z_feedrate, 
                            self.options.start_delay, self.options.stop_delay,
-                           self.options.pen_up_angle, self.options.pen_down_angle,
+                           self.options.pen_up_cmd, self.options.pen_down_angle,
                            self.options.z_height, self.options.finished_height,
                            self.options.x_home, self.options.y_home,
                            self.options.register_pen,

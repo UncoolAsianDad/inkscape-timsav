@@ -2,19 +2,20 @@ from math import *
 import sys
 
 class GCodeContext:
-    def __init__(self, xy_feedrate, z_feedrate, start_delay, stop_delay, pen_up_cmd, pen_down_angle, z_height, finished_height, x_home, y_home, register_pen, num_pages, continuous, file):
+    def __init__(self, xy_feedrate, start_delay, stop_delay, pen_up_cmd, pen_down_cmd, pen_down_angle, register_pen, continuous, file):
       self.xy_feedrate = xy_feedrate
-      self.z_feedrate = z_feedrate
       self.start_delay = start_delay
       self.stop_delay = stop_delay
       self.pen_up_cmd = pen_up_cmd
+      self.pen_down_cmd = pen_down_cmd
       self.pen_down_angle = pen_down_angle
-      self.z_height = z_height
-      self.finished_height = finished_height
-      self.x_home = x_home
-      self.y_home = y_home
       self.register_pen = register_pen
-      self.num_pages = num_pages
+      self.finished_height = 0
+      self.z_feedrate = 0
+      self.x_home = 0
+      self.y_home = 0
+      self.z_height = 0
+      self.num_pages = 1
       self.continuous = continuous
       self.file = file
       

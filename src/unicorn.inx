@@ -19,8 +19,8 @@
   <output>
     <extension>.gcode</extension>
     <mimetype>application/x-gcode</mimetype>
-    <_filetypename>MakerBot Unicorn G-Code (*.gcode)</_filetypename>
-    <_filetypetooltip>Toolpath for the MakerBot Unicorn Pen Plotter</_filetypetooltip>
+    <_filetypename>TimSav Cutter G-Code (*.gcode)</_filetypename>
+    <_filetypetooltip>Toolpath for the TimSav Needle Cutter</_filetypetooltip>
     <dataloss>true</dataloss>
   </output>
   <script>

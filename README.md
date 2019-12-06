@@ -34,8 +34,9 @@ Typical locations include:
 Usage
 =====
 
-* Create a document with the size of your foamboard (eg. 20x30)
-* IMPORTANT! make sure your document unit is in px (Known issue, will try to fix)
+* Create a document with the size of your foamboard (eg. 20x30 in)
+* IMPORTANT! Change your document unit to px or the script will fail
+  (Known issue, will try to fix)
 * Create some objects and convert all to paths:
 	* Select all text objects.
 	* Choose **Path | Object to Path**.

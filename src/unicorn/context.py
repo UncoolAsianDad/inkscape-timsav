@@ -40,7 +40,7 @@ class GCodeContext:
 				"G1 X0 Y0 F%0.2F" % self.xy_feedrate,
 				"G1 Z%0.2F F%0.2F (go up to finished level)" % (self.finished_height, self.z_feedrate),
 				"G1 X%0.2F Y%0.2F F%0.2F (go home)" % (self.x_home, self.y_home, self.xy_feedrate),
-				"M18 (drives off)",
+				# "M18 (drives off)",
       ]
 
       self.registration = [
@@ -77,7 +77,7 @@ class GCodeContext:
         "G0 Z-15 F%0.2f (return to start position of current sheet)" % (self.z_feedrate),
         "G0 Z-0.01 F%0.2f (move down one sheet)" % (self.z_feedrate),
         "G90 (absolute mode)",
-        "M18 (disengage drives)",
+        # "M18 (disengage drives)",
         "(End of sheet footer)",
       ]
 

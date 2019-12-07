@@ -202,7 +202,7 @@ class SvgParser:
     self.pause_on_layer_change = pause_on_layer_change
     self.entities = []
 
-  def getLength( self, name, default ):
+  def getLength( self, name ):
     '''
     Get the <svg> attribute with name "name" and default value "default"
     Parse the attribute into a value and associated units.  Then, accept
@@ -216,6 +216,8 @@ class SvgParser:
         return None
       elif ( u == '' ) or ( u == 'px' ):
         return v * 0.26458
+      elif ( u == 'in' ):
+        return v * 25.4
       elif ( u == 'mm' ):
         return v
       elif u == '%':
@@ -225,13 +227,13 @@ class SvgParser:
         return None
     else:
       # No width specified; assume the default value
-      return float( default )
+      return None
 
   def parse(self):
     # 0.28222 scale determined by comparing pixels-per-mm in a default Inkscape file.
     # self.svgWidth = self.getLength('width', 354) * 0.28222
     # self.svgHeight = self.getLength('height', 354) * 0.28222
-    self.svgHeight = self.getLength('height', 354) 
+    self.svgHeight = self.getLength('height') 
     self.recursivelyTraverseSvg(self.svg, [[1.0, 0.0, 0], [0.0, -1.0, self.svgHeight]])
     # self.recursivelyTraverseSvg(self.svg)
 

@@ -44,7 +44,7 @@ class MyEffect(inkex.Effect):
                       help="Delay after pen down command before movement in milliseconds")
     self.OptionParser.add_option("--stop-delay",
                       action="store", type="float",
-                      dest="stop_delay", default="150.0",
+                      dest="stop_delay", default="1.0",
                       help="Delay after pen up command before movement in milliseconds")
     self.OptionParser.add_option("--xy-feedrate",
                       action="store", type="float",

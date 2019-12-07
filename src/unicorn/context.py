@@ -48,9 +48,9 @@ class GCodeContext:
         "G4 P%d (wait %dms)" % (self.start_delay, self.start_delay),
         "%s (pen up)" % (self.pen_up_cmd),
         "G4 P%d (wait %dms)" % (self.stop_delay, self.stop_delay),
-        "M18 (disengage drives)",
-        "M01 (Was registration test successful?)",
-        "M17 (engage drives if YES, and continue)",
+        # "M18 (disengage drives)",
+        # "M01 (Was registration test successful?)",
+        # "M17 (engage drives if YES, and continue)",
         ""
       ]
 
@@ -70,7 +70,7 @@ class GCodeContext:
         "G0 Z15 F%0.2f" % (self.z_feedrate),
         "G90 (absolute mode)",
         "G0 X%0.2f Y%0.2f F%0.2f" % (self.x_home, self.y_home, self.xy_feedrate),
-        "M01 (Have you retrieved the print?)",
+        # "M01 (Have you retrieved the print?)",
         "(machine halts until 'okay')",
         "G4 P%d (wait %dms)" % (self.start_delay, self.start_delay),
         "G91 (relative mode)",

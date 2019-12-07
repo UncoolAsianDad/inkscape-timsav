@@ -48,8 +48,7 @@ Usage
 TODOs
 =====
 * Fix units in document
+* Have a way of different depth for score cuts
 * Rename `*PolyLine` stuff to `*Path` to be less misleading.
-* Formalize "home" to be a reasonable place to change pages/pens.
 * Parameterize smoothness for curve approximation.
 * Use native curve G-Codes instead of converting to paths?
-* Include example templates?

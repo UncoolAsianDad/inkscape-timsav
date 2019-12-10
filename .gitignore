@@ -107,3 +107,5 @@ venv.bak/
 
 .idea/
 inkscape-unicorn.iml
+inkscape-unicorn.ipr
+inkscape-unicorn.iws

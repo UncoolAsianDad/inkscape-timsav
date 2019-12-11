@@ -47,6 +47,7 @@ Usage
 
 TODOs
 =====
+* Add score cut ability
 * Fix units in document
 * Have a way of different depth for score cuts
 * Rename `*PolyLine` stuff to `*Path` to be less misleading.

@@ -29,6 +29,8 @@ class GCodeContext:
         "G21 (metric ftw)",
         "G90 (absolute mode)",
         "G92 X%.2f Y%.2f Z%.2f (you are here)" % (self.x_home, self.y_home, self.z_height),
+        "G0 F%0.2f (Travel Feed Rate)" % self.xy_feedrate*2,
+        "G1 F%0.2f (Cut Feed Rate)" % self.xy_feedrate,
         ""
       ]
 
@@ -131,7 +133,7 @@ class GCodeContext:
             self.codes.append("%s (Pen Up)" % self.pen_up_cmd)
             self.codes.append("G4 P%d (wait %dms)" % (self.stop_delay, self.stop_delay))
             self.drawing = False
-        self.codes.append("G1 X%.2f Y%.2f F%.2f" % (x,y, self.xy_feedrate))
+        self.codes.append("G0 X%.2f Y%.2f " % (x,y))
       self.last = (x,y)
 	
     def draw_to_point(self, x, y, stop=False):
@@ -144,5 +146,5 @@ class GCodeContext:
             self.codes.append("%s S%0.2F (pen down)" % (self.pen_down_cmd, self.pen_down_angle))
             self.codes.append("G4 P%d (wait %dms)" % (self.start_delay, self.start_delay))
             self.drawing = True
-        self.codes.append("G1 X%0.2f Y%0.2f F%0.2f" % (x,y, self.xy_feedrate))
+        self.codes.append("G1 X%0.2f Y%0.2f " % (x,y))
       self.last = (x,y)

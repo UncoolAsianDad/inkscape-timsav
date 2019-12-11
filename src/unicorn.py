@@ -77,10 +77,6 @@ class MyEffect(inkex.Effect):
                       action="store", type="string",
                       dest="continuous", default="false",
                       help="Plot continuously until stopped.")
-    self.OptionParser.add_option("--pause-on-layer-change",
-                      action="store", type="string",
-                      dest="pause_on_layer_change", default="false",
-                      help="Pause on layer changes.")
     self.OptionParser.add_option("--tab",
                       action="store", type="string",
                       dest="tab")
@@ -95,7 +91,7 @@ class MyEffect(inkex.Effect):
                            self.options.pen_down_cmd, self.options.pen_down_angle,
                            self.options.continuous,
                            self.svg_file)
-    parser = SvgParser(self.document.getroot(), self.options.pause_on_layer_change)
+    parser = SvgParser(self.document.getroot())
     parser.parse()
     for entity in parser.entities:
       entity.get_gcode(self.context)

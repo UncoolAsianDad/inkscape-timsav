@@ -28,7 +28,7 @@ class GCodeContext:
         "G21 (metric ftw)",
         "G90 (absolute mode)",
         "G92 X%.2f Y%.2f Z%.2f (you are here)" % (self.x_home, self.y_home, self.z_height),
-        "G0 F%0.2f (Travel Feed Rate)" % self.xy_feedrate*2,
+        "G0 F%0.2f (Travel Feed Rate)" % self.xy_feedrate,
         "G1 F%0.2f (Cut Feed Rate)" % self.xy_feedrate,
         ""
       ]

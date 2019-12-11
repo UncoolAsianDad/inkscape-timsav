@@ -197,9 +197,8 @@ class SvgParser:
     'text': SvgText
   }
 
-  def __init__(self, svg, pause_on_layer_change='false'):
+  def __init__(self, svg):
     self.svg = svg
-    self.pause_on_layer_change = pause_on_layer_change
     self.entities = []
 
   def getLength( self, name ):
@@ -268,8 +267,7 @@ class SvgParser:
       if node.tag == inkex.addNS('g','svg') or node.tag == 'g':
         if (node.get(inkex.addNS('groupmode','inkscape')) == 'layer'):
           layer_name = node.get(inkex.addNS('label','inkscape'))
-          if(self.pause_on_layer_change == 'true'):
-            self.entities.append(SvgLayerChange(layer_name))
+
         self.recursivelyTraverseSvg(node, matNew, parent_visibility = v)
       elif node.tag == inkex.addNS('use','svg') or node.tag == 'use':
         refid = node.get(inkex.addNS('href','xlink'))

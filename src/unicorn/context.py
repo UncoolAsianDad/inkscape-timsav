@@ -2,14 +2,13 @@ from math import *
 import sys
 
 class GCodeContext:
-    def __init__(self, xy_feedrate, start_delay, stop_delay, pen_up_cmd, pen_down_cmd, pen_down_angle, register_pen, continuous, file):
+    def __init__(self, xy_feedrate, start_delay, stop_delay, pen_up_cmd, pen_down_cmd, pen_down_angle, continuous, file):
       self.xy_feedrate = xy_feedrate
       self.start_delay = start_delay
       self.stop_delay = stop_delay
       self.pen_up_cmd = pen_up_cmd
       self.pen_down_cmd = pen_down_cmd
       self.pen_down_angle = pen_down_angle
-      self.register_pen = register_pen
       self.finished_height = 0
       self.z_feedrate = 0
       self.x_home = 0
@@ -60,9 +59,6 @@ class GCodeContext:
         "(start of sheet header)",
         "G92 X%.2f Y%.2f Z%.2f (you are here)" % (self.x_home, self.y_home, self.z_height),
       ]
-      if self.register_pen == 'true':
-        self.sheet_header.extend(self.registration)
-      self.sheet_header.append("(end of sheet header)")
 
       self.sheet_footer = [
         "(Start of sheet footer.)",
@@ -94,8 +90,6 @@ class GCodeContext:
       codesets = [self.preamble]
       if (self.continuous == 'true' or self.num_pages > 1):
         codesets.append(self.sheet_header)
-      elif self.register_pen == 'true':
-        codesets.append(self.registration)
       codesets.append(self.codes)
       if (self.continuous == 'true' or self.num_pages > 1):
         codesets.append(self.sheet_footer)

@@ -50,6 +50,10 @@ class MyEffect(inkex.Effect):
                       action="store", type="float",
                       dest="xy_feedrate", default="3500.0",
                       help="XY axes feedrate in mm/min")
+    self.OptionParser.add_option("--xy-travelrate",
+                      action="store", type="float",
+                      dest="xy_travelrate", default="7000.0",
+                      help="XY axes travelrate in mm/min")
     self.OptionParser.add_option("--z-feedrate",
                       action="store", type="float",
                       dest="z_feedrate", default="150.0",
@@ -85,7 +89,7 @@ class MyEffect(inkex.Effect):
     self.context.generate()
 
   def effect(self):
-    self.context = GCodeContext(self.options.xy_feedrate,
+    self.context = GCodeContext(self.options.xy_feedrate,self.options.xy_travelrate,
                            self.options.start_delay, self.options.stop_delay,
                            self.options.pen_up_cmd,
                            self.options.pen_down_cmd, self.options.pen_down_angle,

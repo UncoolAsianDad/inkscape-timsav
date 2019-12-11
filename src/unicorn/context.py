@@ -2,8 +2,9 @@ from math import *
 import sys
 
 class GCodeContext:
-    def __init__(self, xy_feedrate, start_delay, stop_delay, pen_up_cmd, pen_down_cmd, pen_down_angle, continuous, file):
+    def __init__(self, xy_feedrate, xy_travelrate, start_delay, stop_delay, pen_up_cmd, pen_down_cmd, pen_down_angle, continuous, file):
       self.xy_feedrate = xy_feedrate
+      self.xy_travelrate = xy_travelrate
       self.start_delay = start_delay
       self.stop_delay = stop_delay
       self.pen_up_cmd = pen_up_cmd
@@ -28,7 +29,7 @@ class GCodeContext:
         "G21 (metric ftw)",
         "G90 (absolute mode)",
         "G92 X%.2f Y%.2f Z%.2f (you are here)" % (self.x_home, self.y_home, self.z_height),
-        "G0 F%0.2f (Travel Feed Rate)" % self.xy_feedrate,
+        "G0 F%0.2f (Travel Feed Rate)" % self.xy_travelrate,
         "G1 F%0.2f (Cut Feed Rate)" % self.xy_feedrate,
         ""
       ]
@@ -38,7 +39,7 @@ class GCodeContext:
 				"(end of print job)",
 				"%s (pen up)" % (self.pen_up_cmd),
 				"G4 P%d (wait %dms)" % (self.stop_delay, self.stop_delay),
-				"G0 X%0.2F Y%0.2F F%0.2F (go home)" % (self.x_home, self.y_home, self.xy_feedrate),
+				"G0 X%0.2F Y%0.2F F%0.2F (go home)" % (self.x_home, self.y_home, self.xy_travelrate),
 				# "M18 (drives off)",
       ]
 

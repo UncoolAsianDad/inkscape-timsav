@@ -23,8 +23,8 @@ class GCodeContext:
       self.last = None
 
       self.preamble = [
-        "(Scribbled version of %s @ %.2f)" % (self.file, self.xy_feedrate),
-        "( %s )" % " ".join(sys.argv),
+        # "G4 P1 (Scribbled version of %s @ %.2f)" % (self.file, self.xy_feedrate),
+        # "G4 P1 ( %s )" % " ".join(sys.argv),
         "%s (Pen Up)" % self.pen_up_cmd,
         "G21 (metric ftw)",
         "G90 (absolute mode)",

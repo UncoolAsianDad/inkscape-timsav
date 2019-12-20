@@ -26,6 +26,7 @@ class Circle(Entity):
 
 		context.codes.append("(" + str(self) + ")")
 		context.go_to_point(start[0],start[1])
+		"TODO: Figure out a way to pass in score cut or not"
 		context.start()
 		context.codes.append(arc_code)
 		context.stop()
@@ -57,6 +58,7 @@ class Arc(Entity):
 		context.codes.append("(" + str(self) + ")")
 		context.go_to_point(start[0],start[1])
 		context.last = end
+		"TODO: Figure out a way to pass in score cut or not"
 		context.start()
 		context.codes.append(arc_code)
 		context.stop()
@@ -80,6 +82,7 @@ class PolyLine(Entity):
 	
 				context.codes.append("(" + str(self) + ")")
 				context.go_to_point(start[0],start[1])
+				"TODO: Figure out a way to pass in score cut or not"
 				context.start()
 				for point in points[1:]:
 					context.draw_to_point(point[0],point[1])

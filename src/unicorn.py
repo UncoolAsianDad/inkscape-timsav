@@ -36,8 +36,12 @@ class MyEffect(inkex.Effect):
                       help="Pen Down Command")
     self.OptionParser.add_option("--pen-down-angle",
                       action="store", type="float",
-                      dest="pen_down_angle", default="30.0",
+                      dest="pen_down_angle", default="90.0",
                       help="Pen Down Angle")
+    self.OptionParser.add_option("--pen-score-angle",
+                      action="store", type="float",
+                      dest="pen_score_angle", default="45.0",
+                      help="Pen Score Angle")
     self.OptionParser.add_option("--start-delay",
                       action="store", type="float",
                       dest="start_delay", default="1",
@@ -92,7 +96,7 @@ class MyEffect(inkex.Effect):
     self.context = GCodeContext(self.options.xy_feedrate,self.options.xy_travelrate,
                            self.options.start_delay, self.options.stop_delay,
                            self.options.pen_up_cmd,
-                           self.options.pen_down_cmd, self.options.pen_down_angle,
+                           self.options.pen_down_cmd, self.options.pen_down_angle, self.options.pen_score_angle,
                            self.options.continuous,
                            self.svg_file)
     parser = SvgParser(self.document.getroot())

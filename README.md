@@ -40,6 +40,7 @@ Usage
 * Create some objects and convert all to paths:
 	* Select all text objects.
 	* Choose **Path | Object to Path**.
+* For score cuts make the path strike red #ff0000
 * Save as G-Code:
 	* **File | Save a Copy**.
 	* Select **TimSav G-Code (\*.gcode)**.
@@ -47,9 +48,7 @@ Usage
 
 TODOs
 =====
-* Add score cut ability
 * Fix units in document
-* Have a way of different depth for score cuts
 * Rename `*PolyLine` stuff to `*Path` to be less misleading.
 * Parameterize smoothness for curve approximation.
 * Use native curve G-Codes instead of converting to paths?

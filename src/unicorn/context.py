@@ -107,11 +107,11 @@ class GCodeContext:
           for line in self.postscript:
             print line
 
-    def start(self, isScoreCut=False):
-      if (isScoreCut):
-        self.codes.append("%s S%0.2F (pen down)" % (self.pen_down_cmd, self.pen_score_angle))
+    def start(self, is_score_cut=False):
+      if (is_score_cut):
+        self.codes.append("%s S%0.2F (pen down score)" % (self.pen_down_cmd, self.pen_score_angle))
       else:
-        self.codes.append("%s S%0.2F (pen down)" % (self.pen_down_cmd, self.pen_down_angle))
+        self.codes.append("%s S%0.2F (pen down through)" % (self.pen_down_cmd, self.pen_down_angle))
       self.codes.append("G4 P%d (wait %dms)" % (self.start_delay, self.start_delay))
       self.drawing = True
 

@@ -65,12 +65,16 @@ class SvgIgnoredEntity:
   def __str__(self):
     return "Ignored '%s' tag" % self.tag
   def get_gcode(self,context):
-    #context.codes.append("(" + str(self) + ")")
-    #context.codes.append("")
+    # context.codes.append("( tag " + str(self.tag) + ")")
+    # context.codes.append("")
     return
 
 class SvgPath(entities.PolyLine):
   def load(self, node, mat):
+    a = node.get('style').split(";")
+    d = dict(s.split(':') for s in a)
+    self.cutStyle = d['stroke']
+
     d = node.get('d')
     if len(simplepath.parsePath(d)) == 0:
       return

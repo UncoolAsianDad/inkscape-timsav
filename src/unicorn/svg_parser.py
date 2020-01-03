@@ -17,6 +17,9 @@ def parseLengthWithUnits( str ):
   s = str.strip()
   if s[-2:] == 'px':
     s = s[:-2]
+  elif s[-2:] == 'in':
+    u = 'in'
+    s = s[:-2]
   elif s[-1:] == '%':
     u = '%'
     s = s[:-1]

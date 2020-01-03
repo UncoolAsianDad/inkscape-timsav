@@ -44,8 +44,8 @@ class MyEffect(inkex.Effect):
                       help="Pen Score Angle")
     self.OptionParser.add_option("--pen-draw-angle",
                       action="store", type="float",
-                      dest="pen_draw_angle", default="10.0",
-                      help="Pen Draw Angle")
+                      dest="pen_mark_angle", default="10.0",
+                      help="Pen Mark Angle")
     self.OptionParser.add_option("--start-delay",
                       action="store", type="float",
                       dest="start_delay", default="1",
@@ -101,7 +101,7 @@ class MyEffect(inkex.Effect):
                            self.options.start_delay, self.options.stop_delay,
                            self.options.pen_up_cmd,
                            self.options.pen_down_cmd,
-                           self.options.pen_down_angle, self.options.pen_score_angle, self.options.pen_draw_angle,
+                           self.options.pen_down_angle, self.options.pen_score_angle, self.options.pen_mark_angle,
                            self.options.continuous,
                            self.svg_file)
     parser = SvgParser(self.document.getroot())

@@ -42,7 +42,7 @@ Usage
 * The path cutting orders are generated based on the svg document hierarchy, you can organize your paths with the XML editor.
     ![Document Property](doc/image2.png)
     * For score cuts make the path strike **RED** #ff0000 (mind the lower case ff)
-    * For drawing cuts make the path strike **BLUE** #0000ff (mind the lower case ff)
+    * For marking cuts make the path strike **BLUE** #0000ff (mind the lower case ff)
     * The id of the path can be set with the editor and will be retained in the gcode's comment (helps with gcode troubleshooting)
 * Save as G-Code:
     ![Document Property](doc/image3.png)

@@ -34,21 +34,26 @@ Typical locations include:
 Usage
 =====
 
-* Create a document with the size of your foamboard (eg. 20x30 in)
-* IMPORTANT! Change your document unit to px or the script will fail
-  (Known issue, will try to fix)
+* Create a document with the size of your foam board (eg. 20x30 in)  and **SAVE THE DOCUMENT **
+    ![Document Property](doc/image1.png)
 * Create some objects and convert all to paths:
 	* Select all text objects.
 	* Choose **Path | Object to Path**.
-* For score cuts make the path strike red #ff0000
+* The path cutting orders are generated based on the svg document hierarchy, you can organize your paths with the XML editor.
+    ![Document Property](doc/image2.png)
+    * For score cuts make the path strike **RED** #ff0000 (mind the lower case ff)
+    * For drawing cuts make the path strike **BLUE** #0000ff (mind the lower case ff)
+    * The id of the path can be set with the editor and will be retained in the gcode's comment (helps with gcode troubleshooting)
 * Save as G-Code:
+    ![Document Property](doc/image3.png)
 	* **File | Save a Copy**.
 	* Select **TimSav G-Code (\*.gcode)**.
-	* Save your file.
+	* Save your file and load the new gcode
+	![Document Property](doc/image4.png)
 
 TODOs
 =====
-* Fix units in document
+* Draw arrow for the direction of path for view
 * Rename `*PolyLine` stuff to `*Path` to be less misleading.
 * Parameterize smoothness for curve approximation.
 * Use native curve G-Codes instead of converting to paths?

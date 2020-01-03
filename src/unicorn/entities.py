@@ -1,4 +1,5 @@
 from math import cos, sin, radians
+import context
 import pprint
 
 class Entity:
@@ -26,7 +27,7 @@ class Circle(Entity):
 
 		context.codes.append("(" + str(self) + ")")
 		context.go_to_point(start[0],start[1])
-		context.start(self.cutStyle == '#ff0000')
+		context.start(self.cutStyle)
 		context.codes.append(arc_code)
 		context.stop()
 		context.codes.append("")
@@ -57,7 +58,7 @@ class Arc(Entity):
 		context.codes.append("(" + str(self) + ")")
 		context.go_to_point(start[0],start[1])
 		context.last = end
-		context.start(self.cutStyle == '#ff0000')
+		context.start(self.cutStyle)
 		context.codes.append(arc_code)
 		context.stop()
 		context.codes.append("")
@@ -80,7 +81,7 @@ class PolyLine(Entity):
 	
 				context.codes.append("(" + str(self) + ")")
 				context.go_to_point(start[0],start[1])
-				context.start(self.cutStyle == '#ff0000')
+				context.start(self.cutStyle)
 				for point in points[1:]:
 					context.draw_to_point(point[0],point[1])
 					context.last = point

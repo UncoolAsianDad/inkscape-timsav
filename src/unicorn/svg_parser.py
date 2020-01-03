@@ -2,6 +2,7 @@ import inkex, cubicsuperpath, simplepath, simplestyle, cspsubdiv
 from simpletransform import *
 from bezmisc import *
 import entities
+import context
 from math import radians
 import sys, pprint
 
@@ -76,7 +77,12 @@ class SvgPath(entities.PolyLine):
   def load(self, node, mat):
     a = node.get('style').split(";")
     d = dict(s.split(':') for s in a)
-    self.cutStyle = d['stroke']
+    if d['stroke'] == "#ff0000":
+      self.cutStyle = 2
+    elif d['stroke'] == "#0000ff":
+      self.cutStyle = 3
+    else:
+      self.cutStyle = 1
 
     d = node.get('d')
     if len(simplepath.parsePath(d)) == 0:

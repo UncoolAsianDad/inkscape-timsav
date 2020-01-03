@@ -2,7 +2,7 @@ from math import *
 import sys
 
 class GCodeContext:
-    def __init__(self, xy_feedrate, xy_travelrate, start_delay, stop_delay, pen_up_cmd, pen_down_cmd, pen_down_angle, pen_score_angle, continuous, file):
+    def __init__(self, xy_feedrate, xy_travelrate, start_delay, stop_delay, pen_up_cmd, pen_down_cmd, pen_down_angle, pen_score_angle, pen_draw_angle, continuous, file):
       self.xy_feedrate = xy_feedrate
       self.xy_travelrate = xy_travelrate
       self.start_delay = start_delay
@@ -11,6 +11,7 @@ class GCodeContext:
       self.pen_down_cmd = pen_down_cmd
       self.pen_down_angle = pen_down_angle
       self.pen_score_angle = pen_score_angle
+      self.pen_draw_angle = pen_draw_angle
       self.finished_height = 0
       self.z_feedrate = 0
       self.x_home = 0
@@ -107,9 +108,11 @@ class GCodeContext:
           for line in self.postscript:
             print line
 
-    def start(self, is_score_cut=False):
-      if (is_score_cut):
+    def start(self, cut_type):
+      if cut_type == 2:
         self.codes.append("%s S%0.2F (pen down score)" % (self.pen_down_cmd, self.pen_score_angle))
+      elif cut_type == 3:
+        self.codes.append("%s S%0.2F (pen down draw)" % (self.pen_down_cmd, self.pen_draw_angle))
       else:
         self.codes.append("%s S%0.2F (pen down through)" % (self.pen_down_cmd, self.pen_down_angle))
       self.codes.append("G4 P%d (wait %dms)" % (self.start_delay, self.start_delay))

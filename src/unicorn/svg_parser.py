@@ -1,8 +1,9 @@
-import inkex, cubicsuperpath, simplepath, simplestyle, cspsubdiv
-from simpletransform import *
+import inkex
+from inkex import paths, bezier, transforms
+from inkex.transforms import Transform
 from bezmisc import *
-import entities
-import context
+from unicorn import entities
+from unicorn import context
 from math import radians
 import sys, pprint
 
@@ -52,19 +53,19 @@ def subdivideCubicPath( sp, flat, i=1 ):
 
       b = ( p0, p1, p2, p3 )
 
-      if cspsubdiv.maxdist( b ) > flat:
+      if bezier.maxdist( b ) > flat:
         break
 
       i += 1
 
-    one, two = beziersplitatt( b, 0.5 )
+    one, two = bezier.beziersplitatt( b, 0.5 )
     sp[i - 1][2] = one[1]
     sp[i][0] = two[2]
     p = [one[2], one[3], two[1]]
     sp[i:1] = [p]
 
 class SvgIgnoredEntity:
-  def load(self,node,mat):
+  def load(self,node,trans):
     self.tag = node.tag
   def __str__(self):
     return "Ignored '%s' tag" % self.tag
@@ -74,7 +75,7 @@ class SvgIgnoredEntity:
     return
 
 class SvgPath(entities.PolyLine):
-  def load(self, node, mat):
+  def load(self, node, trans):
     a = node.get('style').split(";")
     d = dict(s.split(':') for s in a)
     if d['stroke'] == "#ff0000":
@@ -85,10 +86,11 @@ class SvgPath(entities.PolyLine):
       self.cutStyle = 1
 
     d = node.get('d')
-    if len(simplepath.parsePath(d)) == 0:
+    p = paths.Path(d)
+    if len(p) == 0:
       return
-    p = cubicsuperpath.parsePath(d)
-    applyTransformToPath(mat, p)
+    p = paths.CubicSuperPath(p)
+    p = p.transform(trans)
 
     # p is now a list of lists of cubic beziers [ctrl p1, ctrl p2, endpoint]
     # where the start-point is the last point in the previous segment
@@ -111,7 +113,7 @@ class SvgPath(entities.PolyLine):
     return newpath
 
 class SvgRect(SvgPath):
-  def load(self, node, mat):
+  def load(self, node, trans):
     newpath = self.new_path_from_node(node)
     x = float(node.get('x'))
     y = float(node.get('y'))
@@ -123,11 +125,11 @@ class SvgRect(SvgPath):
     a.append([' l ', [0,h]])
     a.append([' l ', [-w,0]])
     a.append([' Z', []])
-    newpath.set('d', simplepath.formatPath(a))
-    SvgPath.load(self,newpath,mat)
+    newpath.set('d', str(paths.Path(a)))
+    SvgPath.load(self,newpath,trans)
 
 class SvgLine(SvgPath):
-  def load(self, node, mat):
+  def load(self, node, trans):
     newpath = self.new_path_from_node(node)
     x1 = float(node.get('x1'))
     y1 = float(node.get('y1'))
@@ -136,11 +138,11 @@ class SvgLine(SvgPath):
     a = []
     a.append(['M ', [x1,y1]])
     a.append([' L ', [x2,y2]])
-    newpath.set('d', simplepath.formatPath(a))
-    SvgPath.load(self,newpath,mat)
+    newpath.set('d', str(path.Path(a)))
+    SvgPath.load(self,newpath,trans)
 
 class SvgPolyLine(SvgPath):
-  def load(self, node, mat):
+  def load(self, node, trans):
     newpath = self.new_path_from_node(node)
     pl = node.get('points','').strip()
     if pl == '':
@@ -153,13 +155,13 @@ class SvgPolyLine(SvgPath):
     for i in range(1, len(pa)):
       d += " L " + pa[i]
     newpath.set('d',d)
-    SvgPath.load(self,newpath,mat)
+    SvgPath.load(self,newpath,trans)
 
 class SvgEllipse(SvgPath):
-  def load(self, node,mat):
+  def load(self, node,trans):
     rx = float(node.get('rx','0'))
     ry = float(node.get('ry','0'))
-    SvgPath.load(self,self.make_ellipse_path(rx,ry,node), mat)
+    SvgPath.load(self,self.make_ellipse_path(rx,ry,node), trans)
   def make_ellipse_path(self, rx, ry, node):
     if rx == 0 or ry == 0:
       return None
@@ -177,14 +179,14 @@ class SvgEllipse(SvgPath):
     return newpath
   
 class SvgCircle(SvgEllipse):
-  def load(self, node,mat):
+  def load(self, node,trans):
     rx = float(node.get('r','0'))
-    SvgPath.load(self,self.make_ellipse_path(rx,rx,node), mat)
+    SvgPath.load(self,self.make_ellipse_path(rx,rx,node), trans)
 
 class SvgText(SvgIgnoredEntity):
-  def load(self,node,mat):
+  def load(self,node,trans):
     inkex.errormsg('Warning: unable to draw text. please convert it to a path first.')
-    SvgIgnoredEntity.load(self,node,mat)
+    SvgIgnoredEntity.load(self,node,trans)
 
 class SvgLayerChange():
   def __init__(self,layer_name):
@@ -246,12 +248,12 @@ class SvgParser:
     # self.svgWidth = self.getLength('width', 354) * 0.28222
     # self.svgHeight = self.getLength('height', 354) * 0.28222
     self.svgHeight = self.getLength('height') 
-    self.recursivelyTraverseSvg(self.svg, [[1.0, 0.0, 0], [0.0, -1.0, self.svgHeight]])
+    self.recursivelyTraverseSvg(self.svg, Transform([[1.0, 0.0, 0], [0.0, -1.0, self.svgHeight]]))
     # self.recursivelyTraverseSvg(self.svg)
 
   # TODO: center this thing
   def recursivelyTraverseSvg(self, nodeList, 
-                             matCurrent = [[1.0, 0.0, 0.0], [0.0, -1.0, 0.0]],
+                             transCurrent = Transform([[1.0, 0.0, 0.0], [0.0, -1.0, 0.0]]),
                              parent_visibility = 'visible'):
     """
     Recursively traverse the svg file to plot out all of the
@@ -275,13 +277,15 @@ class SvgParser:
         pass
 
       # first apply the current matrix transform to this node's transform
-      matNew = composeTransform(matCurrent, parseTransform(node.get("transform")))
+
+      trans = Transform(node.get("transform"));
+      transNew = transCurrent * trans
 
       if node.tag == inkex.addNS('g','svg') or node.tag == 'g':
         if (node.get(inkex.addNS('groupmode','inkscape')) == 'layer'):
           layer_name = node.get(inkex.addNS('label','inkscape'))
 
-        self.recursivelyTraverseSvg(node, matNew, parent_visibility = v)
+        self.recursivelyTraverseSvg(node, transNew, parent_visibility = v)
       elif node.tag == inkex.addNS('use','svg') or node.tag == 'use':
         refid = node.get(inkex.addNS('href','xlink'))
         if refid:
@@ -293,23 +297,23 @@ class SvgParser:
             y = float(node.get('y','0'))
             # Note: the transform has already been applied
             if (x!=0) or (y!=0):
-              matNew2 = composeTransform(matNew,parseTransform('translate(%f,%f)' % (x,y)))
+              transNew2 = transNew * parseTransform('translate(%f,%f)' % (x,y))
             else:
-              matNew2 = matNew
+              transNew2 = transNew
             v = node.get('visibility',v)
-            self.recursivelyTraverseSvg(refnode,matNew2,parent_visibility=v)
+            self.recursivelyTraverseSvg(refnode,transNew2,parent_visibility=v)
           else:
             pass
         else:
           pass
-      elif not isinstance(node.tag, basestring):
+      elif not isinstance(node.tag, str):
         pass
       else:
-        entity = self.make_entity(node, matNew)
+        entity = self.make_entity(node, transNew)
         if entity == None:
           inkex.errormsg('Warning: unable to draw object, please convert it to a path first.')
 
-  def make_entity(self,node,mat):
+  def make_entity(self,node,trans):
     for nodetype in SvgParser.entity_map.keys():
       tag = nodetype
       ns = 'svg'
@@ -319,7 +323,7 @@ class SvgParser:
       if node.tag == inkex.addNS(tag,ns) or node.tag == tag:
         constructor = SvgParser.entity_map[nodetype]
         entity = constructor()
-        entity.load(node,mat)
+        entity.load(node,trans)
         self.entities.append(entity)
         return entity
     return None

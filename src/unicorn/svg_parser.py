@@ -22,6 +22,9 @@ def parseLengthWithUnits( str ):
   elif s[-2:] == 'in':
     u = 'in'
     s = s[:-2]
+  elif s[-2:] == 'mm':
+    u = 'mm'
+    s = s[:-2]
   elif s[-1:] == '%':
     u = '%'
     s = s[:-1]

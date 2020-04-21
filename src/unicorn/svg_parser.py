@@ -124,11 +124,12 @@ class SvgRect(SvgPath):
     w = float(node.get('width'))
     h = float(node.get('height'))
     a = []
-    a.append(['M ', [x,y]])
-    a.append([' l ', [w,0]])
-    a.append([' l ', [0,h]])
-    a.append([' l ', [-w,0]])
-    a.append([' Z', []])
+    a.append(['M', [x,y]])
+    a.append(['l', [w,0]])
+    a.append(['l', [0,h]])
+    a.append(['l', [-w,0]])
+    a.append(['Z', []])
+
     newpath.set('d', str(paths.Path(a)))
     SvgPath.load(self,newpath,trans)
 
@@ -140,8 +141,8 @@ class SvgLine(SvgPath):
     x2 = float(node.get('x2'))
     y2 = float(node.get('y2'))
     a = []
-    a.append(['M ', [x1,y1]])
-    a.append([' L ', [x2,y2]])
+    a.append(['M', [x1,y1]])
+    a.append(['L', [x2,y2]])
     newpath.set('d', str(path.Path(a)))
     SvgPath.load(self,newpath,trans)
 
@@ -181,7 +182,7 @@ class SvgEllipse(SvgPath):
     newpath = self.new_path_from_node(node)
     newpath.set('d',d)
     return newpath
-  
+
 class SvgCircle(SvgEllipse):
   def load(self, node,trans):
     rx = float(node.get('r','0'))

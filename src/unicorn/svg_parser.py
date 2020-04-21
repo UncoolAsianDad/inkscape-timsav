@@ -4,6 +4,7 @@ from inkex.transforms import Transform
 from bezmisc import *
 from unicorn import entities
 from unicorn import context
+from lxml import etree
 from math import radians
 import sys, pprint
 
@@ -106,7 +107,7 @@ class SvgPath(entities.PolyLine):
       self.segments.append(points)
 
   def new_path_from_node(self, node):
-    newpath = inkex.etree.Element(inkex.addNS('path','svg'))
+    newpath = etree.Element(inkex.addNS('path','svg'))
     s = node.get('style')
     if s:
       newpath.set('style',s)

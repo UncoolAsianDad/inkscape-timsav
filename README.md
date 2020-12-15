@@ -14,7 +14,7 @@ I am not responsible for any damanage or harm that may have caused by this exten
 Credits
 =======
 
-* Brian Ho modified this extension to generate compatable g-code for TimSav (Robotini GRBL)  
+* Brian Ho modified this extension to generate compatible g-code for TimSav (Robotini GRBL)  
 * Marty McGuire pulled this all together into an Inkscape extension.
 * [Inkscape](http://www.inkscape.org/) is an awesome open source vector graphics app.
 * [Scribbles](https://github.com/makerbot/Makerbot/tree/master/Unicorn/Scribbles%20Scripts) is the original DXF-to-Unicorn Python script.
@@ -23,13 +23,15 @@ Credits
 Install
 =======
 
-Copy the contents of `src/` to your Inkscape `extensions/` folder.
+Copy the contents to your Inkscape `extensions/` folder.
 
 Typical locations include:
 
 * OS X - `/Applications/Inkscape.app/Contents/Resources/extensions`
 * Linux - `/usr/share/inkscape/extensions`
 * Windows - `C:\Program Files\Inkscape\share\extensions`
+
+you should have 2 files directly under the extensions folder (unicorn.inx, unicorn.py) and the unicorn folder as well.
 
 Usage
 =====

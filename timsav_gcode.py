@@ -17,8 +17,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 """
 import inkex
-from unicorn.context import GCodeContext
-from unicorn.svg_parser import SvgParser
+from timsav_gcode.context import GCodeContext
+from timsav_gcode.svg_parser import SvgParser
 
 
 class TimSavGCodeGenerator(inkex.Effect):

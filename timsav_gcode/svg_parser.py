@@ -2,7 +2,7 @@ import inkex
 from inkex import Path, bezier, CubicSuperPath
 from inkex.transforms import Transform
 from lxml import etree
-from unicorn import entities
+from timsav_gcode import entities
 
 
 def parse_length_with_units(string):

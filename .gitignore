@@ -105,9 +105,4 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-.idea/
-inkscape-unicorn.iml
-inkscape-unicorn.ipr
-inkscape-unicorn.iws
-
 *.pyc

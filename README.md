@@ -8,12 +8,14 @@ Disclaimer
 ===========================================
 I am not responsible for any damanage or harm that may have caused by this extension, do so at your own risk
 
+* Modified by: [Spencer Schumann](https://github.com/spencerschumann)
 * Modified by: [Brian Ho](http://github.com/kawateihikaru)
 * Original Author: [Marty McGuire](http://github.com/martymcguire)
 
 Credits
 =======
 
+* Spencer Schumann renamed this extension from `unicorn` to `timsav_gcode` and fixed some stroke color handling problems
 * Brian Ho modified this extension to generate compatible g-code for TimSav (Robotini GRBL)  
 * Marty McGuire pulled this all together into an Inkscape extension.
 * [Inkscape](http://www.inkscape.org/) is an awesome open source vector graphics app.
@@ -31,7 +33,7 @@ Typical locations include:
 * Linux - `/usr/share/inkscape/extensions`
 * Windows - `C:\Program Files\Inkscape\share\extensions`
 
-you should have 2 files directly under the extensions folder (unicorn.inx, unicorn.py) and the unicorn folder as well.
+you should have 2 files directly under the extensions folder (timsav_gcode.inx, timsave_gcode.py) and the timsav_gcode folder as well.
 
 Usage
 =====

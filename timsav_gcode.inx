@@ -3,7 +3,7 @@
   <_name>TimSav G-Code Output</_name>
   <id>com.timsav.gcode</id>
   <dependency type="extension">org.inkscape.output.svg.inkscape</dependency>
-  <dependency type="executable" location="extensions">unicorn.py</dependency>
+  <dependency type="executable" location="extensions">timsav_gcode.py</dependency>
   <dependency type="executable" location="extensions">inkex.py</dependency>
   <param name="tab" type="notebook">
     <page name="plotter_setup" _gui-text="Setup">
@@ -27,6 +27,6 @@
     <dataloss>true</dataloss>
   </output>
   <script>
-    <command reldir="extensions" interpreter="python">unicorn.py</command>
+    <command reldir="extensions" interpreter="python">timsav_gcode.py</command>
   </script>
 </inkscape-extension>

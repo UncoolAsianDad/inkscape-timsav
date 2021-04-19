@@ -88,15 +88,15 @@ class SvgIgnoredEntity:
 class SvgPath(entities.PolyLine):
     def __init__(self):
         super().__init__()
-        self.cutStyle = 1
+        self.cut_style = 1
 
     def load(self, node, trans):
         a = node.get('style').split(";")
         d = dict(s.split(':') for s in a)
         if d['stroke'] == "#ff0000":
-            self.cutStyle = 2
+            self.cut_style = 2
         elif d['stroke'] == "#0000ff":
-            self.cutStyle = 3
+            self.cut_style = 3
         else:
             pass
 

@@ -27,7 +27,7 @@ class Circle(Entity):
 	def __init__(self):
 		self.center = None
 		self.radius = None
-		self.cutStyle = None
+		self.cut_style = None
 
 	def __str__(self):
 		return "Circle at [%.2f,%.2f], radius %.2f" % (self.center[0], self.center[1], self.radius)
@@ -39,7 +39,7 @@ class Circle(Entity):
 
 		context.codes.append("(" + str(self) + ")")
 		context.go_to_point(start[0], start[1])
-		context.start(self.cutStyle)
+		context.start(self.cut_style)
 		context.codes.append(arc_code)
 		context.stop()
 		context.codes.append("")
